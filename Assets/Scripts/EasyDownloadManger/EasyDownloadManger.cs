@@ -46,15 +46,15 @@ namespace EasyDownloadManger
 			Debug.Log("Downolading . . . ");
 			return true;
 		}
-		public void DownloadText(string url, Action<string> OnDownloadComplete)
+		public void DownloadText(string url, Action<string> OnDownloadComplete,string filename ="temp")
 		{
 			if(DownloadPreProccess(url, "Text") == false) return;
-			textDownloader.DownLoadText(url, OnDownloadComplete);
+			textDownloader.DownLoadText(url, OnDownloadComplete, filename);
 		}
-		public void DownloadImage(string url, Action<Texture2D> OnDownloadComplete)
+		public void DownloadImage(string url, Action<Texture2D> OnDownloadComplete,string filename ="temp")
 		{
 			if (DownloadPreProccess(url, "Image") == false) return;
-			imageDownloader.DownLoadImage(url, OnDownloadComplete);
+			imageDownloader.DownLoadImage(url, OnDownloadComplete,filename);
 		}
 		public void DownloadAudioCLip(string url, Action<AudioClip> OnDownloadComplete, AudioType type = AudioType.MPEG)
 		{

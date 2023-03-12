@@ -10,18 +10,18 @@ namespace EasyDownloadManger
 {
 	class TextDownloader : MonoBehaviour
 	{
-		public void DownLoadText(string url, Action<string> OnDownloadComplete)
+		public void DownLoadText(string url, Action<string> OnDownloadComplete,string fileName )
 		{
-			string FilePath = Application.persistentDataPath + "/" + url + ".txt";
+			string FilePath = Application.persistentDataPath + "/" + fileName + ".txt";
 			if (File.Exists(FilePath))
 			{
 				Debug.Log("file already downloaded");
 				OnDownloadComplete(File.ReadAllText(FilePath));
 			}
-			StartCoroutine(DownLoadTextRoutine(url, OnDownloadComplete));
+			StartCoroutine(DownLoadTextRoutine(url, OnDownloadComplete, FilePath));
 		}
 
-		IEnumerator DownLoadTextRoutine(string url, Action<string> OnDownloadComplete)
+		IEnumerator DownLoadTextRoutine(string url, Action<string> OnDownloadComplete,string FilePath)
 		{
 
 			string DownloadedText = "";
@@ -35,7 +35,7 @@ namespace EasyDownloadManger
 			else
 			{
 				DownloadedText = webRequest.downloadHandler.text;
-				File.WriteAllText(Application.persistentDataPath + "/" + url+".txt", DownloadedText);
+				File.WriteAllText(FilePath, DownloadedText);
 				OnDownloadComplete(DownloadedText);
 			}
 		}

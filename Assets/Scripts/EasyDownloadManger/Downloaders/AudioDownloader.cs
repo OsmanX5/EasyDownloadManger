@@ -6,14 +6,14 @@ using UnityEngine.Networking;
 
 namespace EasyDownloadManger
 {
-	public class AudioDownloader : MonoBehaviour
+	class AudioDownloader : MonoBehaviour
 	{
 		public void DownLoadAudioClip(string url, Action<AudioClip> OnDownloadComplete, AudioType type)
 		{
 			StartCoroutine(DownLoadAudioClipRoutine(url, OnDownloadComplete, type));
 		}
 
-		public IEnumerator DownLoadAudioClipRoutine(string url, Action<AudioClip> OnDownloadComplete, AudioType type)
+		IEnumerator DownLoadAudioClipRoutine(string url, Action<AudioClip> OnDownloadComplete, AudioType type)
 		{
 			AudioClip DownloadedAudio = null;
 			UnityWebRequest webRequest = UnityWebRequestMultimedia.GetAudioClip(url, type);
