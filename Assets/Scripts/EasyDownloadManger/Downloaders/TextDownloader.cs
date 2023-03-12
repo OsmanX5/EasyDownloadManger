@@ -10,10 +10,10 @@ namespace EasyDownloadManger
 {
 	class TextDownloader : MonoBehaviour
 	{
-		public void DownLoadText(string url, Action<string> OnDownloadComplete,string fileName )
+		public void DownLoadText(string url, Action<string> OnDownloadComplete,string fileName="temp")
 		{
 			string FilePath = Application.persistentDataPath + "/" + fileName + ".txt";
-			if (File.Exists(FilePath))
+			if (File.Exists(FilePath) && fileName!="temp")
 			{
 				Debug.Log("file already downloaded");
 				OnDownloadComplete(File.ReadAllText(FilePath));

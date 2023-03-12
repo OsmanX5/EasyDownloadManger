@@ -36,6 +36,7 @@ namespace EasyDownloadManger
 			{
 				DownloadedTexture = DownloadHandlerTexture.GetContent(webRequest);
 				SaveImageToDisk(DownloadedTexture, FilePath);
+				Debug.Log("Download done");
 				OnDownloadComplete(DownloadedTexture);
 			}
 		}
