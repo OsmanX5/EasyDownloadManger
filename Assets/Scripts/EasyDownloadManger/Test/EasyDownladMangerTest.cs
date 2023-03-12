@@ -30,26 +30,26 @@ public class EasyDownladMangerTest : MonoBehaviour
 	}
 	public void OnClick_DownloadText()
 	{
-		EDM.DownloadManger.DownloadText(URL.text, textTest.ShowData);
+		Downloader.Instance.DownloadText(URL.text, textTest.ShowData);
 	}
 
 	public void OnClick_DownloadImage()
 	{
-		EDM.DownloadManger.DownloadImage(URL.text, imageTest.ShowData);
+		Downloader.Instance.DownloadImage(URL.text, imageTest.ShowData);
 	}
 
 	public void OnClick_DownloadAudioClip()
 	{
-		EDM.DownloadManger.DownloadAudioCLip(URL.text, audioClipTest.showData);
+		Downloader.Instance.DownloadAudioCLip(URL.text, audioClipTest.showData);
 	}
 
 	public void OnClick_DownloadAssetBunddle()
 	{
-		EDM.DownloadManger.DownloadAssetBunddle(URL.text, assetBunddleTest.ShowData);
+		Downloader.Instance.DownloadAssetBunddle(URL.text, assetBunddleTest.ShowData);
 	}
 	public void OnClick_DownloadPrefab()
 	{
-		EDM.DownloadManger.DownloadAssetBunddleSingleItem<GameObject>(URL.text, prefabTest.ShowData);
+		Downloader.Instance.DownloadAssetBunddleSingleItem<GameObject>(URL.text, prefabTest.ShowData);
 	}
 }
 //     text link     : https://drive.google.com/u/0/uc?id=18a3jIUqmd6cjLOnTrAwUueltafyoudm7&export=download

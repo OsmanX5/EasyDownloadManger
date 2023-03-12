@@ -8,16 +8,31 @@ using UnityEngine.UI;
 
 namespace EasyDownloadManger
 {
-	public class EDM : MonoBehaviour
+	public class Downloader : MonoBehaviour
 	{
-		public static EDM DownloadManger;
-		static TextDownloader textDownloader;
-		static ImageDownloader imageDownloader;
-		static AudioDownloader audioDownloader;
-		static AssetBunddleDownloader assetBunddleDownloader;
+		static Downloader _instance;
+		public static Downloader Instance
+		{
+			get => IniaiteDownladerObject();
+		}
+
+		static Downloader IniaiteDownladerObject()
+		{
+			if (_instance == null)
+			{
+				GameObject Instantiated = GameObject.Instantiate(new GameObject(), Vector3.zero, Quaternion.identity);
+				Instantiated.name = "Downloader";
+				_instance = Instantiated.AddComponent<Downloader>();
+			}
+			return _instance;
+		}
+
+		TextDownloader textDownloader;
+		ImageDownloader imageDownloader;
+		AudioDownloader audioDownloader;
+		AssetBunddleDownloader assetBunddleDownloader;
 		void Awake()
 		{
-			DownloadManger = this;
 			textDownloader = this.AddComponent<TextDownloader>();
 			imageDownloader = this.AddComponent<ImageDownloader>();
 			audioDownloader = this.AddComponent<AudioDownloader>();
@@ -26,6 +41,7 @@ namespace EasyDownloadManger
 
 		bool DownloadPreProccess(string url,string type)
 		{
+			IniaiteDownladerObject();
 			DebugLog.Clear();
 			DebugLog.AddMessege($"Function : EDM.Download{type}()");
 			if (url.Length < 10)
