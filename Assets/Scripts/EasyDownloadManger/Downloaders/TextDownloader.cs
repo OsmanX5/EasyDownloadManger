@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Networking;
+using System.IO;
 
 namespace EasyDownloadManger
 {
@@ -11,23 +12,30 @@ namespace EasyDownloadManger
 	{
 		public void DownLoadText(string url, Action<string> OnDownloadComplete)
 		{
+			string FilePath = Application.persistentDataPath + "/" + url + ".txt";
+			if (File.Exists(FilePath))
+			{
+				Debug.Log("file already downloaded");
+				OnDownloadComplete(File.ReadAllText(FilePath));
+			}
 			StartCoroutine(DownLoadTextRoutine(url, OnDownloadComplete));
 		}
 
-		public IEnumerator DownLoadTextRoutine(string url, Action<string> OnDownloadComplete)
+		IEnumerator DownLoadTextRoutine(string url, Action<string> OnDownloadComplete)
 		{
+
 			string DownloadedText = "";
 			UnityWebRequest webRequest = UnityWebRequest.Get(url);
 			yield return webRequest.SendWebRequest();
 			if (webRequest.error != null)
 			{
-				DebugLog.AddMessege("Error happend");
-				DebugLog.AddMessege(webRequest.error);
+				Debug.Log("Error happend");
+				Debug.Log(webRequest.error);
 			}
 			else
 			{
-				DebugLog.AddMessege("Success in reciving data");
 				DownloadedText = webRequest.downloadHandler.text;
+				File.WriteAllText(Application.persistentDataPath + "/" + url+".txt", DownloadedText);
 				OnDownloadComplete(DownloadedText);
 			}
 		}

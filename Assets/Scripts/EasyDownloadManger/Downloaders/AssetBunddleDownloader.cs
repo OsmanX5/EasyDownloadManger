@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 
 namespace EasyDownloadManger
 {
-	public class AssetBunddleDownloader : MonoBehaviour
+	class AssetBunddleDownloader : MonoBehaviour
 	{
 		public void DownloadAsset(string url, Action<AssetBundle> OnDownloadComplete)
 		{
@@ -19,12 +19,13 @@ namespace EasyDownloadManger
 			yield return request.SendWebRequest();
 			if (request.error != null)
 			{
-				DebugLog.AddMessege("Failed to download AssetBunddle");
+				Debug.Log("Failed to download AssetBunddle");
+				Debug.Log(request.error);
 				yield break;
 			}
 
 			AssetBundle asset = DownloadHandlerAssetBundle.GetContent(request);
-			DebugLog.AddMessege("Loadded Asset :" + asset.name);
+			Debug.Log("Loadded Asset :" + asset.name);
 			callBack(asset);
 		}
 	}

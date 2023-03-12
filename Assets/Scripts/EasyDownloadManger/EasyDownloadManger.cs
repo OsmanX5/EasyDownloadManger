@@ -1,10 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Net.Mime;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace EasyDownloadManger
 {
@@ -42,14 +38,12 @@ namespace EasyDownloadManger
 		bool DownloadPreProccess(string url,string type)
 		{
 			IniaiteDownladerObject();
-			DebugLog.Clear();
-			DebugLog.AddMessege($"Function : EDM.Download{type}()");
 			if (url.Length < 10)
 			{
-				DebugLog.AddMessege("Too short URL");
+				Debug.Log("Too short URL");
 				return false;
 			}
-			DebugLog.AddMessege("Downolading . . . ");
+			Debug.Log("Downolading . . . ");
 			return true;
 		}
 		public void DownloadText(string url, Action<string> OnDownloadComplete)
@@ -88,7 +82,7 @@ namespace EasyDownloadManger
 				string assetName = downloadedAsset.GetAllAssetNames()[0];
 				if (downloadedAsset.LoadAsset(assetName).GetType() != typeof(T))
 				{
-					DebugLog.AddMessege("Diffrent types");
+					Debug.Log("Diffrent types");
 					return;
 				}
 

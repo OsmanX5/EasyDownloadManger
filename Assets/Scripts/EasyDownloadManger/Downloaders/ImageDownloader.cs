@@ -20,12 +20,11 @@ namespace EasyDownloadManger
 			yield return webRequest.SendWebRequest();
 			if (webRequest.error != null)
 			{
-				DebugLog.AddMessege("Error happend");
-				DebugLog.AddMessege(webRequest.error);
+				Debug.Log("Error happend");
+				Debug.Log(webRequest.error);
 			}
 			else
 			{
-				DebugLog.AddMessege("Success in recived the text from the server");
 				DownloadedTexture = DownloadHandlerTexture.GetContent(webRequest);
 				OnDownloadComplete(DownloadedTexture);
 			}
