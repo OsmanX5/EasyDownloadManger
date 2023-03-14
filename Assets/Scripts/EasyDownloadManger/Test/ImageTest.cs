@@ -8,8 +8,8 @@ public class ImageTest : Test
 	public void ShowData(Texture2D data)
 	{
 		clear();
-		CreatObject();
 		Image testImage;
+		created = GameObject.Instantiate(new GameObject(), infoScreen.transform);
 		created.AddComponent<RectTransform>();
 		created.AddComponent<CanvasRenderer>();
 		testImage = created.AddComponent<Image>();

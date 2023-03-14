@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using EasyDownloadManger;
 using Unity.VisualScripting;
+using static System.Net.WebRequestMethods;
 
 public class EasyDownladMangerTest : MonoBehaviour
 {
@@ -29,27 +30,37 @@ public class EasyDownladMangerTest : MonoBehaviour
 		prefabTest.infoScreen = infoScreen;
 	}
 	public void OnClick_DownloadText()
-	{
-		Downloader.Instance.DownloadText(URL.text, textTest.ShowData);
+    {
+		if (string.IsNullOrEmpty(URL.text))
+			URL.text = "https://drive.google.com/u/0/uc?id=18a3jIUqmd6cjLOnTrAwUueltafyoudm7&export=download";
+        Downloader.Instance.DownloadText(URL.text, textTest.ShowData);
 	}
 
 	public void OnClick_DownloadImage()
 	{
-		Downloader.Instance.DownloadImage(URL.text, imageTest.ShowData);
+        if (string.IsNullOrEmpty(URL.text))
+            URL.text = "https://drive.google.com/u/0/uc?id=1HoLKMvDbyczGxn2TusQNCqHeTAtM7yVH&export=download";
+        Downloader.Instance.DownloadImage(URL.text, imageTest.ShowData);
 	}
 
 	public void OnClick_DownloadAudioClip()
 	{
-		Downloader.Instance.DownloadAudioCLip(URL.text, audioClipTest.showData);
+        if (string.IsNullOrEmpty(URL.text))
+            URL.text = "https://drive.google.com/u/0/uc?id=19iqtWdwsZ0ZqFktVv0ZrX9wTf3ufp03M&export=download";
+        Downloader.Instance.DownloadAudioCLip(URL.text, audioClipTest.showData);
 	}
 
 	public void OnClick_DownloadAssetBunddle()
 	{
-		Downloader.Instance.DownloadAssetBunddle(URL.text, assetBunddleTest.ShowData);
+        if (string.IsNullOrEmpty(URL.text))
+            URL.text = "https://drive.google.com/u/0/uc?id=127YdkS3_T7YDVRuFKb9anjtoKfmPhGMh&export=download";
+        Downloader.Instance.DownloadAssetBunddle(URL.text, assetBunddleTest.ShowData);
 	}
 	public void OnClick_DownloadPrefab()
 	{
-		Downloader.Instance.DownloadAssetBunddleSingleItem<GameObject>(URL.text, prefabTest.ShowData);
+        if (string.IsNullOrEmpty(URL.text))
+            URL.text = "https://drive.google.com/u/0/uc?id=1R1nqvhWFGrILojKKZkmEWJZe-3qzpbO8&export=download";
+        Downloader.Instance.DownloadAssetBunddleSingleItem<GameObject>(URL.text, prefabTest.ShowData);
 	}
 }
 //     text link     : https://drive.google.com/u/0/uc?id=18a3jIUqmd6cjLOnTrAwUueltafyoudm7&export=download

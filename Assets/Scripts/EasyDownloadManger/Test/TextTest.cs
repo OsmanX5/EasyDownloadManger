@@ -8,7 +8,6 @@ public class TextTest : Test
 	public void ShowData( string data)
 	{
 		clear();
-		CreatObject();
 		infoText.text = data;
 	}
 }

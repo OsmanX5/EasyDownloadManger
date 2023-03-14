@@ -1,34 +1,26 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using UnityEngine;
 using UnityEngine.Networking;
 
 namespace EasyDownloadManger
 {
-	class ImageDownloader : MonoBehaviour
-	{
-		public void DownLoadImage(string url, Action<Texture2D> OnDownloadComplete)
+	class ImageDownloader : InterneDownloader
+    {
+		Action<Texture2D> OnDownloadCompleteCallBack;
+        public void DownLoadImage(string url, Action<Texture2D> onDownloadComplete)
 		{
-			StartCoroutine(DownLoadImageRoutine(url, OnDownloadComplete));
-		}
-
-		public IEnumerator DownLoadImageRoutine(string url, Action<Texture2D> OnDownloadComplete)
+            OnDownloadCompleteCallBack = onDownloadComplete;
+            UnityWebRequest webRequest = UnityWebRequestTexture.GetTexture(url);
+			Download(webRequest);
+        }
+        protected override void OnResponse(UnityWebRequest Response)
 		{
-			Texture2D DownloadedTexture = null;
-			UnityWebRequest webRequest = UnityWebRequestTexture.GetTexture(url);
-			yield return webRequest.SendWebRequest();
-			if (webRequest.error != null)
-			{
-				DebugLog.AddMessege("Error happend");
-				DebugLog.AddMessege(webRequest.error);
-			}
-			else
-			{
-				DebugLog.AddMessege("Success in recived the text from the server");
-				DownloadedTexture = DownloadHandlerTexture.GetContent(webRequest);
-				OnDownloadComplete(DownloadedTexture);
-			}
-		}
+            base.OnResponse(Response);
+            Texture2D DownloadedTexture = DownloadHandlerTexture.GetContent(Response);
+            OnDownloadCompleteCallBack(DownloadedTexture);
+        }
 	}
 }

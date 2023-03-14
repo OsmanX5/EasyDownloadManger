@@ -1,32 +1,27 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using UnityEngine.Networking;
 
 namespace EasyDownloadManger
 {
-	public class AssetBunddleDownloader : MonoBehaviour
-	{
-		public void DownloadAsset(string url, Action<AssetBundle> OnDownloadComplete)
-		{
-			StartCoroutine(DownladAssetBunddle(url, OnDownloadComplete));
-		}
-
-		IEnumerator DownladAssetBunddle(string url, Action<AssetBundle> callBack)
-		{
-			UnityWebRequest request = UnityWebRequestAssetBundle.GetAssetBundle(url);
-			yield return request.SendWebRequest();
-			if (request.error != null)
-			{
-				DebugLog.AddMessege("Failed to download AssetBunddle");
-				yield break;
-			}
-
-			AssetBundle asset = DownloadHandlerAssetBundle.GetContent(request);
-			DebugLog.AddMessege("Loadded Asset :" + asset.name);
-			callBack(asset);
-		}
+	public class AssetBunddleDownloader : InterneDownloader
+    {
+        Action<AssetBundle> OnDownloadCompleteCallBack;
+        public void DownloadAsset(string url, Action<AssetBundle> onDownloadComplete)
+        {
+            OnDownloadCompleteCallBack = onDownloadComplete;
+            UnityWebRequest webRequest = UnityWebRequestAssetBundle.GetAssetBundle(url);
+            Download(webRequest);
+        }
+        protected override void OnResponse(UnityWebRequest Response)
+        {
+            base.OnResponse(Response);
+            AssetBundle asset = DownloadHandlerAssetBundle.GetContent(Response);
+            OnDownloadCompleteCallBack(asset);
+        }
 	}
 
 }

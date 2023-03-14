@@ -7,7 +7,6 @@ public class AssetBunddleTest : Test
 	public void ShowData(AssetBundle data)
 	{
 		clear();
-		CreatObject();
 		string s = " Asset Name : " + data.name;
 		foreach (var assetName in data.GetAllAssetNames())
 		{

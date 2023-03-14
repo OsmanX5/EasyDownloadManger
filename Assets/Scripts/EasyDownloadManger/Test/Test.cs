@@ -18,9 +18,4 @@ public class Test : MonoBehaviour
 			Destroy(infoScreen.transform.GetChild(0).gameObject);
 		}
 	}
-	public void CreatObject()
-	{
-		created = Instantiate(new GameObject(), infoScreen.transform);
-
-	}
 }

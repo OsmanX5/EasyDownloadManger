@@ -20,7 +20,8 @@ namespace EasyDownloadManger
 		{
 			if (_instance == null)
 			{
-				GameObject Instantiated = GameObject.Instantiate(new GameObject(), Vector3.zero, Quaternion.identity);
+				Debug.Log("Initate Downloader");
+				GameObject Instantiated = Instantiate(new GameObject(), Vector3.zero, Quaternion.identity);
 				Instantiated.name = "Downloader";
 				_instance = Instantiated.AddComponent<Downloader>();
 			}
@@ -42,14 +43,7 @@ namespace EasyDownloadManger
 		bool DownloadPreProccess(string url,string type)
 		{
 			IniaiteDownladerObject();
-			DebugLog.Clear();
-			DebugLog.AddMessege($"Function : EDM.Download{type}()");
-			if (url.Length < 10)
-			{
-				DebugLog.AddMessege("Too short URL");
-				return false;
-			}
-			DebugLog.AddMessege("Downolading . . . ");
+			if (url.Length < 10)return false;
 			return true;
 		}
 		public void DownloadText(string url, Action<string> OnDownloadComplete)
@@ -88,7 +82,6 @@ namespace EasyDownloadManger
 				string assetName = downloadedAsset.GetAllAssetNames()[0];
 				if (downloadedAsset.LoadAsset(assetName).GetType() != typeof(T))
 				{
-					DebugLog.AddMessege("Diffrent types");
 					return;
 				}
 
