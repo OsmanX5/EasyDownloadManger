@@ -4,12 +4,15 @@ using UnityEngine;
 using TMPro;
 using EasyDownloadManger;
 using Unity.VisualScripting;
+using UnityEngine.UI;
 using static System.Net.WebRequestMethods;
 
 public class EasyDownladMangerTest : MonoBehaviour
 {
 	public TMP_InputField URL;
 	public GameObject infoScreen;
+	public Image progressBar;
+	public TMP_Text precent;
 	TextTest textTest;
 	ImageTest imageTest;
 	AudioClipTest audioClipTest;
@@ -28,6 +31,17 @@ public class EasyDownladMangerTest : MonoBehaviour
 		assetBunddleTest.infoScreen = infoScreen;
 		prefabTest = this.AddComponent<PrefabTest>();
 		prefabTest.infoScreen = infoScreen;
+	}
+
+	void FixedUpdate()
+	{
+		progressBar.fillAmount = Downloader.CurrentDownloadProgress;
+		int precentValue = (int)(Downloader.CurrentDownloadProgress * 100);
+		if (precentValue == 100)
+			precent.text = "successfully";
+		else
+			precent.text = precentValue.ToString() + "%";
+		
 	}
 	public void OnClick_DownloadText()
     {

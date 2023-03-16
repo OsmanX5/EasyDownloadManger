@@ -28,6 +28,7 @@ namespace EasyDownloadManger
 			return _instance;
 		}
 
+		public static float CurrentDownloadProgress { get; set; }
 		TextDownloader textDownloader;
 		ImageDownloader imageDownloader;
 		AudioDownloader audioDownloader;
@@ -40,42 +41,51 @@ namespace EasyDownloadManger
 			assetBunddleDownloader = this.AddComponent<AssetBunddleDownloader>();
 		}
 
-		bool DownloadPreProccess(string url,string type)
+		bool DownloadPreProccess(InterneDownloader downloaderType ,string url)
 		{
 			IniaiteDownladerObject();
 			if (url.Length < 10)return false;
+			StartCoroutine(DownloadProcess(downloaderType));
 			return true;
+		}
+
+		IEnumerator DownloadProcess(InterneDownloader downloaderObject)
+		{
+			while (downloaderObject.DownloadProgress <= 1f)
+			{
+				CurrentDownloadProgress = downloaderObject.DownloadProgress;
+				if(downloaderObject.DownloadProgress >=1f) break;
+				Debug.Log(CurrentDownloadProgress);
+				yield return new WaitForSeconds(0.1f);
+			}
 		}
 		public void DownloadText(string url, Action<string> OnDownloadComplete)
 		{
-			if(DownloadPreProccess(url, "Text") == false) return;
+			if(DownloadPreProccess(textDownloader,url) == false) return;
 			textDownloader.DownLoadText(url, OnDownloadComplete);
 		}
 		public void DownloadImage(string url, Action<Texture2D> OnDownloadComplete)
 		{
-			if (DownloadPreProccess(url, "Image") == false) return;
+			if (DownloadPreProccess(imageDownloader,url) == false) return;
 			imageDownloader.DownLoadImage(url, OnDownloadComplete);
 		}
 		public void DownloadAudioCLip(string url, Action<AudioClip> OnDownloadComplete, AudioType type = AudioType.MPEG)
 		{
-			if (DownloadPreProccess(url, "AudioClip") == false) return;
+			if (DownloadPreProccess(audioDownloader,url) == false) return;
 			audioDownloader.DownLoadAudioClip(url, OnDownloadComplete, type);
 		}
 		public void DownloadAssetBunddle(string url, Action<AssetBundle> OnDownloadComplete)
 		{
-			if (DownloadPreProccess(url, "AssetBunddle") == false) return;
+			if (DownloadPreProccess(assetBunddleDownloader,url) == false) return;
 			assetBunddleDownloader.DownloadAsset(url, OnDownloadComplete);
 		}
 		public void DownloadPrefabAsset(string url, Action<GameObject> OnDownloadComplete)
 		{
-			if (DownloadPreProccess(url, "PrefabAsset") == false) return;
 			DownloadAssetBunddleSingleItem<GameObject>(url, OnDownloadComplete);
-			
 		}
 
 		public void DownloadAssetBunddleSingleItem<T>(string url, Action<T> OnDownloadComplete) where T: UnityEngine.Object
 		{
-			if (DownloadPreProccess(url, "AssetBunddleSingleItem" +typeof(T)) == false) return;
 			DownloadAssetBunddle(url, OnAssetDownloaded);
 			void OnAssetDownloaded(AssetBundle downloadedAsset)
 			{

@@ -9,6 +9,7 @@ namespace EasyDownloadManger
 {
     public class InterneDownloader : MonoBehaviour
     {
+        public float DownloadProgress { get; set; }
         public void Download(UnityWebRequest request)
         {
             Debug.Log("Start Downloading . . .");
@@ -16,8 +17,18 @@ namespace EasyDownloadManger
         }
         IEnumerator DownLoadRoutine(UnityWebRequest request)
         {
-            yield return request.SendWebRequest();
-            if(request.error != null)
+	        DownloadProgress = 0f;
+
+			request.SendWebRequest();
+            while (DownloadProgress <1f)
+            {
+	            DownloadProgress = request.downloadProgress;
+	            yield return null;
+            }
+
+            DownloadProgress = 1f;
+
+			if (request.error != null)
             {
                 Debug.LogError(request.error);
             }
