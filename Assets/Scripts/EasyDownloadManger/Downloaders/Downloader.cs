@@ -21,7 +21,7 @@ namespace EasyDownloadManger
 	        DownloadProgress = 0f;
 
 			request.SendWebRequest();
-            while (DownloadProgress <1f)
+            while (!request.isDone)
             {
 	            DownloadProgress = request.downloadProgress;
 	            yield return null;
