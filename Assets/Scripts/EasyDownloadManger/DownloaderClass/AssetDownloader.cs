@@ -1,10 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Net.Mime;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Video;
 
 namespace EasyDownloadManger
@@ -36,7 +33,7 @@ namespace EasyDownloadManger
 				OnDownloadComplete(videoGameObject);
 			}
 		}
-		public void DownloadAssetBunddleSingleItem<T>(string url, Action<T> OnDownloadComplete) where T: UnityEngine.Object
+		public void DownloadAssetBunddleSingleItem<T>(string url, Action<T> OnDownloadComplete) where T : UnityEngine.Object
 		{
 			DownloadAssetBunddle(url, OnAssetDownloaded);
 			void OnAssetDownloaded(AssetBundle downloadedAsset)
@@ -51,8 +48,5 @@ namespace EasyDownloadManger
 				OnDownloadComplete(data);
 			}
 		}
-
-
 	}
-
 }
