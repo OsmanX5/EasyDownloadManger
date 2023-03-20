@@ -8,39 +8,8 @@ using UnityEngine.UI;
 
 namespace EasyDownloadManger
 {
-	public class Downloader : MonoBehaviour
+	public partial class Downloader : MonoBehaviour
 	{
-		static Downloader _instance;
-		public static Downloader Instance
-		{
-			get => IniaiteDownladerObject();
-		}
-
-		static Downloader IniaiteDownladerObject()
-		{
-			if (_instance == null)
-			{
-				Debug.Log("Initate Downloader");
-				GameObject Instantiated = Instantiate(new GameObject(), Vector3.zero, Quaternion.identity);
-				Instantiated.name = "Downloader";
-				_instance = Instantiated.AddComponent<Downloader>();
-			}
-			return _instance;
-		}
-
-		public static float CurrentDownloadProgress { get; set; }
-		TextDownloader textDownloader;
-		ImageDownloader imageDownloader;
-		AudioDownloader audioDownloader;
-		AssetBunddleDownloader assetBunddleDownloader;
-		void Awake()
-		{
-			textDownloader = this.AddComponent<TextDownloader>();
-			imageDownloader = this.AddComponent<ImageDownloader>();
-			audioDownloader = this.AddComponent<AudioDownloader>();
-			assetBunddleDownloader = this.AddComponent<AssetBunddleDownloader>();
-		}
-
 		bool DownloadPreProccess(InterneDownloader downloaderType ,string url)
 		{
 			IniaiteDownladerObject();
@@ -48,7 +17,6 @@ namespace EasyDownloadManger
 			StartCoroutine(DownloadProcess(downloaderType));
 			return true;
 		}
-
 		IEnumerator DownloadProcess(InterneDownloader downloaderObject)
 		{
 			while (downloaderObject.DownloadProgress <= 1f)
@@ -79,28 +47,5 @@ namespace EasyDownloadManger
 			if (DownloadPreProccess(assetBunddleDownloader,url) == false) return;
 			assetBunddleDownloader.DownloadAsset(url, OnDownloadComplete);
 		}
-		public void DownloadPrefabAsset(string url, Action<GameObject> OnDownloadComplete)
-		{
-			DownloadAssetBunddleSingleItem<GameObject>(url, OnDownloadComplete);
-		}
-
-		public void DownloadAssetBunddleSingleItem<T>(string url, Action<T> OnDownloadComplete) where T: UnityEngine.Object
-		{
-			DownloadAssetBunddle(url, OnAssetDownloaded);
-			void OnAssetDownloaded(AssetBundle downloadedAsset)
-			{
-				string assetName = downloadedAsset.GetAllAssetNames()[0];
-				if (downloadedAsset.LoadAsset(assetName).GetType() != typeof(T))
-				{
-					return;
-				}
-
-				T data = downloadedAsset.LoadAsset<T>(assetName);
-				OnDownloadComplete(data);
-			}
-		}
-
-
 	}
-
 }
