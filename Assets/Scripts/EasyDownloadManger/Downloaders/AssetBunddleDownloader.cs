@@ -9,7 +9,6 @@ namespace EasyDownloadManger
 {
 	public class AssetBunddleDownloader : InterneDownloader
     {
-        Action<AssetBundle> OnDownloadCompleteCallBack;
         public void DownloadAsset(string url, Action<AssetBundle> onDownloadComplete)
         {
             OnDownloadCompleteCallBack = onDownloadComplete;
@@ -20,7 +19,7 @@ namespace EasyDownloadManger
         {
             base.OnResponse(Response);
             AssetBundle asset = DownloadHandlerAssetBundle.GetContent(Response);
-            OnDownloadCompleteCallBack(asset);
+            OnDownloadCompleteCallBack.DynamicInvoke(asset);
         }
 	}
 

@@ -9,10 +9,9 @@ namespace EasyDownloadManger
 {
 	public class AudioDownloader : InterneDownloader
     {
-        Action<AudioClip> callBackFunction;
         public void DownLoadAudioClip(string url, Action<AudioClip> OnDownloadComplete, AudioType type=AudioType.MPEG)
         {
-            callBackFunction = OnDownloadComplete;
+	        OnDownloadCompleteCallBack = OnDownloadComplete;
             UnityWebRequest webRequest = UnityWebRequestMultimedia.GetAudioClip(url, type);
             Download(webRequest);
         }
@@ -20,7 +19,7 @@ namespace EasyDownloadManger
         {
             base.OnResponse(Response);
             AudioClip DownloadedAudio = DownloadHandlerAudioClip.GetContent(Response);
-            callBackFunction(DownloadedAudio);
+            OnDownloadCompleteCallBack.DynamicInvoke(DownloadedAudio);
         }
 	}
 }

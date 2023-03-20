@@ -9,7 +9,8 @@ namespace EasyDownloadManger
 {
     public class InterneDownloader : MonoBehaviour
     {
-        public float DownloadProgress { get; set; }
+	    protected Delegate OnDownloadCompleteCallBack;
+		public float DownloadProgress { get; set; }
         public void Download(UnityWebRequest request)
         {
             Debug.Log("Start Downloading . . .");

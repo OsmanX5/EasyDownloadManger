@@ -9,7 +9,6 @@ namespace EasyDownloadManger
 {
 	class ImageDownloader : InterneDownloader
     {
-		Action<Texture2D> OnDownloadCompleteCallBack;
         public void DownLoadImage(string url, Action<Texture2D> onDownloadComplete)
 		{
             OnDownloadCompleteCallBack = onDownloadComplete;
@@ -20,7 +19,7 @@ namespace EasyDownloadManger
 		{
             base.OnResponse(Response);
             Texture2D DownloadedTexture = DownloadHandlerTexture.GetContent(Response);
-            OnDownloadCompleteCallBack(DownloadedTexture);
+            OnDownloadCompleteCallBack.DynamicInvoke(DownloadedTexture);
         }
 	}
 }

@@ -10,10 +10,9 @@ namespace EasyDownloadManger
 {
 	class TextDownloader : InterneDownloader
     {
-        Action<string> callBackFunction;
         public void DownLoadText(string url, Action<string> OnDownloadComplete)
         {
-            callBackFunction = OnDownloadComplete;
+	        OnDownloadCompleteCallBack = OnDownloadComplete;
             UnityWebRequest webRequest = UnityWebRequest.Get(url);
             Download(webRequest);
         }
@@ -21,7 +20,7 @@ namespace EasyDownloadManger
         {
             base.OnResponse(Response);
             string DownloadedText = Response.downloadHandler.text;
-            callBackFunction(DownloadedText);
+            OnDownloadCompleteCallBack.DynamicInvoke(DownloadedText);
         }
 	}
 }
