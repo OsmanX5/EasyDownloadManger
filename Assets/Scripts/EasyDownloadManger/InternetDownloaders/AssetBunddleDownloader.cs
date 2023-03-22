@@ -8,7 +8,7 @@ namespace EasyDownloadManger
 {
 	public class AssetBunddleDownloader : InterneDownloader
     {
-        public void Download(string url, Action<AssetBundle> onDownloadComplete)
+        public override void Download(string url, Delegate onDownloadComplete)
         {
             OnDownloadCompleteCallBack = onDownloadComplete;
             UnityWebRequest webRequest = UnityWebRequestAssetBundle.GetAssetBundle(url);

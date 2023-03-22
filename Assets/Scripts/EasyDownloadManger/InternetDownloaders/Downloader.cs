@@ -43,5 +43,9 @@ namespace EasyDownloadManger
         {
             Debug.Log("Downloaded Susseccfully");
         }
+        public virtual void Download(string url, Delegate callback)
+        {
+
+        }
     }
 }

@@ -9,7 +9,7 @@ namespace EasyDownloadManger
 {
 	class ImageDownloader : InterneDownloader
     {
-        public void Download(string url, Action<Texture2D> onDownloadComplete)
+        public override void Download(string url, Delegate onDownloadComplete)
 		{
             OnDownloadCompleteCallBack = onDownloadComplete;
             UnityWebRequest webRequest = UnityWebRequestTexture.GetTexture(url);
