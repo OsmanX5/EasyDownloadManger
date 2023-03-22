@@ -30,22 +30,22 @@ namespace EasyDownloadManger
 		public void DownloadText(string url, Action<string> OnDownloadComplete)
 		{
 			if(DownloadPreProccess(textDownloader,url) == false) return;
-			textDownloader.DownLoadText(url, OnDownloadComplete);
+			textDownloader.Donwload(url, OnDownloadComplete);
 		}
 		public void DownloadImage(string url, Action<Texture2D> OnDownloadComplete)
 		{
 			if (DownloadPreProccess(imageDownloader,url) == false) return;
-			imageDownloader.DownLoadImage(url, OnDownloadComplete);
+			imageDownloader.Download(url, OnDownloadComplete);
 		}
 		public void DownloadAudioCLip(string url, Action<AudioClip> OnDownloadComplete, AudioType type = AudioType.MPEG)
 		{
 			if (DownloadPreProccess(audioDownloader,url) == false) return;
-			audioDownloader.DownLoadAudioClip(url, OnDownloadComplete, type);
+			audioDownloader.Download(url, OnDownloadComplete);
 		}
 		public void DownloadAssetBunddle(string url, Action<AssetBundle> OnDownloadComplete)
 		{
 			if (DownloadPreProccess(assetBunddleDownloader,url) == false) return;
-			assetBunddleDownloader.DownloadAsset(url, OnDownloadComplete);
+			assetBunddleDownloader.Download(url, OnDownloadComplete);
 		}
 	}
 }

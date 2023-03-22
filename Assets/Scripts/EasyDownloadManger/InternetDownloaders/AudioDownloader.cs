@@ -9,11 +9,11 @@ namespace EasyDownloadManger
 {
 	public class AudioDownloader : InterneDownloader
     {
-        public void DownLoadAudioClip(string url, Action<AudioClip> OnDownloadComplete, AudioType type=AudioType.MPEG)
+        public void Download(string url, Action<AudioClip> OnDownloadComplete)
         {
 	        OnDownloadCompleteCallBack = OnDownloadComplete;
-            UnityWebRequest webRequest = UnityWebRequestMultimedia.GetAudioClip(url, type);
-            Download(webRequest);
+            UnityWebRequest webRequest = UnityWebRequestMultimedia.GetAudioClip(url, AudioType.MPEG);
+            StartDownloadingWithRequest(webRequest);
         }
         protected override void OnResponse(UnityWebRequest Response)
         {

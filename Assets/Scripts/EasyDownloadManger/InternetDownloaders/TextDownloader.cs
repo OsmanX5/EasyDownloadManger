@@ -10,11 +10,11 @@ namespace EasyDownloadManger
 {
 	class TextDownloader : InterneDownloader
     {
-        public void DownLoadText(string url, Action<string> OnDownloadComplete)
+        public void Donwload(string url, Action<string> OnDownloadComplete)
         {
 	        OnDownloadCompleteCallBack = OnDownloadComplete;
             UnityWebRequest webRequest = UnityWebRequest.Get(url);
-            Download(webRequest);
+            StartDownloadingWithRequest(webRequest);
         }
         protected override void OnResponse(UnityWebRequest Response)
         {

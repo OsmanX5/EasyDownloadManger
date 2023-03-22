@@ -11,7 +11,7 @@ namespace EasyDownloadManger
     {
 	    protected Delegate OnDownloadCompleteCallBack;
 		public float DownloadProgress { get; set; }
-        public void Download(UnityWebRequest request)
+        public void StartDownloadingWithRequest(UnityWebRequest request)
         {
             Debug.Log("Start Downloading . . .");
             StartCoroutine(DownLoadRoutine(request));
